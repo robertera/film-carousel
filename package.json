@@ -1,13 +1,6 @@
 {
   "name": "film-carousel",
   "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
-  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^16.0.0",
@@ -34,5 +27,18 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "typescript": "~5.0.2"
-  }
+  },
+  "description": "In this project, i'm goin to do a list of films from IMDB, and this films will be listed in a carousel with their posters, the rate from the imdb, and the name",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robertera/film-carousel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robertera/film-carousel/issues"
+  },
+  "homepage": "https://github.com/robertera/film-carousel#readme"
 }
