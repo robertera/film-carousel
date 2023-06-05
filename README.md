@@ -15,5 +15,7 @@ In this project, i'm goin to do a list of films from IMDB, and this films will b
 
 2- with the local data, i needed to consume the api, so i created the imdb.service, and call the datas from the json i created earlyer.
 
-3- i create the model view to our carousel
+3- i create the component views to our carousel.
+
+4- the posters are to small, so i needed to contorn this situation, and i saw in the api has the call to posters, so i got back in the service and call the request, and make it put on our local data to avoid the use of 100 calls p/day of the api
 
