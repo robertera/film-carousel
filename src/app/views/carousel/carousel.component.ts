@@ -1,14 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ImdbService } from 'src/app/services/imdb.service';
+import {carouselAnimation, fadeIn, fadeOut} from './carousel.animation';
+import {trigger, transition, useAnimation} from '@angular/animations';
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
-  styleUrls: ['./carousel.component.css']
+  styleUrls: ['./carousel.component.css'],
+  animations:[
+    trigger('slideAnimation', [
+      transition('void => fade', [
+        useAnimation(fadeIn, {params: {time: '1s'}})
+      ]),
+      transition('fade => void',[
+        useAnimation(fadeOut, {params: {time: '1s'}})
+      ])
+    ])
+  ]
 })
 export class CarouselComponent implements OnInit {
-
+  @Input() animationType = carouselAnimation.Fade;
   public movies: any = [];
+  currentMovie = 0;
 
   constructor(private imdb: ImdbService){
 
@@ -23,7 +36,7 @@ export class CarouselComponent implements OnInit {
     this.imdb.getData().subscribe((data) => {
       data.forEach((item) => {
         this.movies.push(item);
-        while (this.movies.length > 10) {
+        while (this.movies.length > 20) {
           this.movies.pop();
         }
         return;
@@ -38,5 +51,15 @@ export class CarouselComponent implements OnInit {
           })
         })*/
     });
+  }
+
+  onPreviousClick(){
+    const previous = this.currentMovie - 1;
+    this.currentMovie = previous < 0 ? this.movies.length - 1 : previous;
+  }
+
+  onNextClick(){
+    const next = this.currentMovie + 1;
+    this.currentMovie = next === this.movies.length ? 0 : next;
   }
 }
