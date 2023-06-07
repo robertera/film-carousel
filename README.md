@@ -22,3 +22,7 @@ Day 2:
 - I made the skeleton of our site, in sequence, i do the directives and the data bindings
 - i added some visual designs, and do one verification to films that not realeased yet.
 
+Day 3:
+- I added 3 films to see in carousel side by side
+- I adjust the animation and the css of these elements
+- I adjust some issues and its almost done

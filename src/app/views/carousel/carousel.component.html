@@ -1,30 +1,29 @@
 <div class="carousel">
-  <mat-card>
-    <ng-container *ngFor='let movie of movies; let i = index'>
-      <mat-card-header
-      *ngIf='i === currentMovie' [@slideAnimation]="animationType">
+  <ng-container *ngFor='let movie of visibleMovies; let i = index'>
+    <mat-card class="slide">
+      <mat-card-header [@slideAnimation]="animationType">
         <mat-card-title>{{movie.title}}</mat-card-title>
         <mat-card-subtitle>{{movie.year}}</mat-card-subtitle>
       </mat-card-header>
-      <img *ngIf='i === currentMovie' class="slide" [src]='movie.image' [@slideAnimation]="animationType" />
+      <div class="poster-container">
+        <img class="poster" [src]='movie.image' [@slideAnimation]="animationType" />
+      </div>
 
-      <mat-card-content *ngIf='i === currentMovie' [@slideAnimation]="animationType">
+      <mat-card-content class="slide-content" [@slideAnimation]="animationType">
         <p>{{movie.crew}}</p>
-        <ng-container>
-          <ng-container *ngIf="movie.imDbRating !== ''">
-            <p><b>IMDB Rating: {{ movie.imDbRating }}</b></p>
-          </ng-container>
-          <ng-container *ngIf="movie.imDbRating === ''">
-            <p><b>The movie is not released yet!</b></p>
-          </ng-container>
+        <ng-container *ngIf="movie.imDbRating !== ''; else notReleased">
+          <p><b>IMDB Rating: {{ movie.imDbRating }}</b></p>
         </ng-container>
+        <ng-template #notReleased>
+          <p><b>The movie is not released yet!</b></p>
+        </ng-template>
       </mat-card-content>
-    </ng-container>
-    <button class="control prev" mat-mini-fab aria-label="Previous" (click)="onPreviousClick()">
-      <mat-icon>arrow_back</mat-icon>
-    </button>
-    <button class="control next" mat-mini-fab aria-label="Next" (click)="onNextClick()">
-      <mat-icon>arrow_forward</mat-icon>
-    </button>
-  </mat-card>
+    </mat-card>
+  </ng-container>
+  <button class="control prev" mat-mini-fab aria-label="Previous" (click)="onPreviousClick()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button class="control next" mat-mini-fab aria-label="Next" (click)="onNextClick()">
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
 </div>
