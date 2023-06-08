@@ -26,3 +26,4 @@ Day 3:
 - I added 3 films to see in carousel side by side
 - I adjust the animation and the css of these elements
 - I adjust some issues and its almost done
+- Added a simple header and footer
