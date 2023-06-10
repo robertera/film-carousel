@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostListener } from '@angular/core';
+import { Component, Input, OnInit, HostListener} from '@angular/core';
 import { ImdbService } from 'src/app/services/imdb.service';
 import {carouselAnimation, slideIn, slideOut} from './carousel.animation';
 import {trigger, transition, useAnimation} from '@angular/animations';
@@ -27,16 +27,13 @@ export class CarouselComponent implements OnInit {
   public isSortedDescending = true;
   public isSortedByYearDescending = true;
   public isSortedByYearOldToNew = true;
+  public isSortedByYear = false;
+  public isSortedByRating = false;
   currentMovieIndex = 0;
   visibleMovies: any = [];
 
-  public isSortedByYear = false;
-  public isSortedByRating = false;
-
   constructor(private imdb: ImdbService){
-
   }
-
 
   ngOnInit(): void{
     this.getMovies();
@@ -64,7 +61,6 @@ export class CarouselComponent implements OnInit {
       this.imdb.getData().subscribe((data) => {
       this.movies = data;
       this.sortedMovies = [...this.movies];
-      this.currentMovieIndex = 0;
       this.updateVisibleMovies();
     });
   }
@@ -78,13 +74,15 @@ export class CarouselComponent implements OnInit {
       this.isSortedByRating = true;
       this.isSortedByYear = false;
 
-      if (this.isSortedDescending) {
-        this.sortedMovies.sort((a: any, b: any) => a.imDbRating - b.imDbRating);
-        this.isSortedDescending = false;
-      } else {
-        this.sortedMovies.sort((a: any, b: any) => b.imDbRating - a.imDbRating);
-        this.isSortedDescending = true;
-      }
+      this.sortedMovies.sort((a: any, b: any) => {
+        if (this.isSortedDescending) {
+          return a.imDbRating - b.imDbRating;
+        } else {
+          return b.imDbRating - a.imDbRating;
+        }
+      });
+
+      this.isSortedDescending = !this.isSortedDescending;
 
       this.currentMovieIndex = 0;
       this.updateVisibleMovies();
@@ -95,16 +93,13 @@ export class CarouselComponent implements OnInit {
       this.isSortedByYear = true;
       this.isSortedByRating = false;
 
-      if (this.isSortedByYearDescending) {
-        this.sortedMovies.sort((a: any, b: any) => a.year - b.year);
-        this.isSortedByYearOldToNew = true;
-        this.isSortedByYearDescending = false;
-      } else {
-        this.sortedMovies.sort((a: any, b: any) => b.year - a.year);
-        this.isSortedByYearOldToNew = false;
-        this.isSortedByYearDescending = true;
-      }
+      this.sortedMovies.sort((a: any, b: any) => {
+        const sortOrder = this.isSortedByYearDescending ? -1 : 1;
+        return sortOrder * (a.year - b.year);
+      });
 
+      this.isSortedByYearDescending = !this.isSortedByYearDescending;
+      this.isSortedByYearOldToNew = !this.isSortedByYearOldToNew;
       this.currentMovieIndex = 0;
       this.updateVisibleMovies();
     }
@@ -116,45 +111,38 @@ export class CarouselComponent implements OnInit {
         const movieIndex = i % this.sortedMovies.length;
         this.visibleMovies.push(this.sortedMovies[movieIndex]);
       }
-  }
+    }
 
   //Reset the list
-      onHome(){
-        this.isSortedByYear = false;
-        this.isSortedByRating = false;
-        this.currentMovieIndex = 0;
-        this.isSortedDescending = true;
-        this.isSortedByYearDescending = true;
-        this.sortedMovies = [...this.movies];
-        this.updateVisibleMovies();
-      }
+    onHome(): void {
+      this.isSortedByYear = false;
+      this.isSortedByRating = false;
+      this.currentMovieIndex = 0;
+      this.isSortedDescending = true;
+      this.isSortedByYearDescending = true;
+      this.sortedMovies = [...this.movies];
+      this.updateVisibleMovies();
+  }
 
   //Buttons to next o previous on the list
-  onPreviousClick() {
-    this.currentMovieIndex =
-      (this.currentMovieIndex - 1 + this.movies.length) % this.movies.length;
-    this.updateVisibleMovies();
-  }
-
-  onNextClick() {
-    this.currentMovieIndex = (this.currentMovieIndex + 1) % this.movies.length;
-    this.updateVisibleMovies();
-  }
-
-  getMaxVisibleMovies(): number {
-    const screenWidth = window.innerWidth;
-
-    if (screenWidth < 500) {
-      return 1;
-    } else if (screenWidth < 900) {
-      return 2;
-    } else {
-      return 3;
+    onPreviousClick() {
+      this.currentMovieIndex =
+        (this.currentMovieIndex - 1 + this.movies.length) % this.movies.length;
+      this.updateVisibleMovies();
     }
-  }
 
-  @HostListener('window:resize')
-  onWindowResize() {
-    this.updateVisibleMovies();
-  }
+    onNextClick() {
+      this.currentMovieIndex = (this.currentMovieIndex + 1) % this.movies.length;
+      this.updateVisibleMovies();
+    }
+
+    getMaxVisibleMovies(): number {
+      const screenWidth = window.innerWidth;
+      return screenWidth < 900 ? (screenWidth < 500 ? 1 : 2) : 3;
+    }
+
+    @HostListener('window:resize')
+    onWindowResize() {
+      this.updateVisibleMovies();
+    }
 }
