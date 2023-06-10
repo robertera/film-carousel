@@ -7,8 +7,6 @@
   width: 100%;
   overflow: hidden;
   border-radius: 0.5em;
-  border-right: 1rem;
-  background: linear-gradient(45deg, #c45e7b 0%, #e1a26d 100%);
 }
 
 .slide {
@@ -16,7 +14,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 90vw;
+  width: 90%;
   min-width: 240px;
   max-width: 380px;
   height: 700px;
@@ -30,24 +28,28 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  position: relative;
+  height: 400px; /* Defina uma altura fixa para o contêiner de pôsteres */
 }
 
 .poster {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover; /* Use 'cover' para manter a proporção e preencher o contêiner */
   border-radius: 0.5em;
 }
 
 .carousel::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
-  background: linear-gradient(to bottom, rgba(242, 134, 160, 0.7), rgba(253, 197, 136, 0));
+  background: linear-gradient(to top, #0E1F33, transparent);
+  transform: translateX(100%);
+  animation: close-right 2s forwards;
+  z-index: -1;
 }
 
 .slide-content {
@@ -59,19 +61,57 @@
   text-align: center;
 }
 
-
 .control {
   border: none;
   background-color: transparent;
   outline: 0;
   cursor: pointer;
-  color: white;
+  color: black;
   font-weight: bold;
   margin: 10px;
 }
 
 .slide:hover {
   animation: transform 0.5s ease-in-out;
+}
+
+.menu {
+  position: absolute;
+  top: 25px;
+  left: 10px;
+  background-color: #FFD700;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.sort-description {
+  color: white;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+}
+
+.imdb {
+  color: #FFD700;
+}
+
+.not-released{
+  color: red
+}
+
+@keyframes close-right {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
 }
 
 @keyframes transform {
@@ -98,7 +138,7 @@
 
   .control {
     position: absolute;
-    background-color: black;
+    background-color: #FFD700;
     top: 45vh;
     padding: 0.5em;
     border-radius: 50%;
@@ -113,13 +153,14 @@
   }
 }
 
-@media screen and (min-width: 460px) {
-  .prev {
-    left: 0;
-  }
+  @media screen and (min-width: 460px) {
+    .prev {
+      left: 0;
+    }
 
-  .next {
-    right: 0;
+    .next {
+      right: 0;
+    }
   }
 
   @media screen and (max-width: 600px) {
@@ -133,5 +174,8 @@
     .poster-container {
       height: 400px;
     }
-  }
+
+    .sort-description {
+      bottom: 75px;
+    }
 }

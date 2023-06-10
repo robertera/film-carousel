@@ -1,0 +1,51 @@
+.header {
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0E1F33;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
+
+.logo-text {
+  font-size: 28px;
+  font-weight: bold;
+  color: #FFD700;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  flex: 1;
+  animation: fade-in 2s ease-in-out forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  .logo-text {
+    font-size: 24px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+}

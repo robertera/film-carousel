@@ -1,5 +1,5 @@
 <div class="carousel">
-  <ng-container *ngFor='let movie of visibleMovies; let i = index'>
+  <ng-container *ngFor="let movie of visibleMovies.slice(0, getMaxVisibleMovies()); let i = index">
     <mat-card class="slide">
       <mat-card-header [@slideAnimation]="animationType">
         <mat-card-title>{{movie.title}}</mat-card-title>
@@ -8,22 +8,46 @@
       <div class="poster-container">
         <img class="poster" [src]='movie.image' [@slideAnimation]="animationType" />
       </div>
-
       <mat-card-content class="slide-content" [@slideAnimation]="animationType">
         <p>{{movie.crew}}</p>
         <ng-container *ngIf="movie.imDbRating !== ''; else notReleased">
-          <p><b>IMDB Rating: {{ movie.imDbRating }}</b></p>
+          <p><b><span class="imdb">IMDB </span>Rating: {{ movie.imDbRating }}</b></p>
         </ng-container>
         <ng-template #notReleased>
-          <p><b>The movie is not released yet!</b></p>
+          <p class="not-released"><b>The movie is not released yet!</b></p>
         </ng-template>
       </mat-card-content>
     </mat-card>
   </ng-container>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onHome()">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </button>
+    <button mat-menu-item (click)="onSortByRating()">
+      <mat-icon>sorted_by</mat-icon>
+      <span>Sorted by Rate</span>
+    </button>
+    <button mat-menu-item (click)="onSortByYear()">
+      <mat-icon>calendar_today</mat-icon>
+      <span>Sorted by Year</span>
+    </button>
+  </mat-menu>
   <button class="control prev" mat-mini-fab aria-label="Previous" (click)="onPreviousClick()">
     <mat-icon>arrow_back</mat-icon>
   </button>
   <button class="control next" mat-mini-fab aria-label="Next" (click)="onNextClick()">
     <mat-icon>arrow_forward</mat-icon>
   </button>
+
+  <button class="menu" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <p class="sort-description">
+    {{ isSortedByYear ? (isSortedByYearDescending ? 'New to Old' : 'Old to New') : '' }}
+    {{ isSortedByRating ? (isSortedDescending ? 'Rating: Descending' : 'Rating: Ascending') : '' }}
+  </p>
+
 </div>
+

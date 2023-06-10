@@ -9,11 +9,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { HeaderComponent } from './views/header/header.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import{MatMenuModule} from '@angular/material/menu';
+import { FooterComponent } from './views/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CarouselComponent
+    CarouselComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +28,9 @@ import {MatIconModule} from '@angular/material/icon';
     BrowserAnimationsModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatToolbarModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

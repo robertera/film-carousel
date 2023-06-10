@@ -8,7 +8,7 @@ In this project, i'm goin to do a list of films from IMDB, and this films will b
 - VSCODE
 - TYPESCRIPT
 - CSS
-- HTML
+- ANGULAR MATERIALS
 
 ## Step by Step
 Day 1:
@@ -24,6 +24,14 @@ Day 2:
 
 Day 3:
 - I added 3 films to see in carousel side by side
-- I adjust the animation and the css of these elements
-- I adjust some issues and its almost done
+- I adjusted the animation and the css of these elements
+- I adjusted some issues and its almost done
 - Added a simple header and footer
+
+Day 4:
+- I adjusted the color palette and theme
+- I added implementes on responsivity of the page
+- I added the menu button ho sort the movies by rate (Ascending to descending and vice versa) and by year (Old to New and vice versa)
+- I synchronized a text below the carousel to inform what type of sort was applied.
+
+ITS DONE!
