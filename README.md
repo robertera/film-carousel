@@ -35,3 +35,5 @@ Day 4:
 - I synchronized a text below the carousel to inform what type of sort was applied.
 
 ITS DONE!
+
+(Apresentation video:  https://www.youtube.com/watch?v=CyqS9q2RtIA)
