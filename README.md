@@ -36,4 +36,3 @@ Day 4:
 
 ITS DONE!
 
-(Apresentation video:  https://www.youtube.com/watch?v=CyqS9q2RtIA)
